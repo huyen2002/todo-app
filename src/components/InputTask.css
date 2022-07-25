@@ -1,0 +1,9 @@
+.input-addTask{
+ border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-left: 100px;
+  margin-right: 100px;
+  bottom: calc(100vh - 200px);
+  
+}
