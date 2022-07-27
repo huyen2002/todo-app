@@ -1,9 +1,29 @@
-.input-addTask{
- border: 2px solid #ccc;
+.input-addTask {
+  width: 60%;
   border-radius: 4px;
   padding: 6px 12px;
   margin-left: 100px;
   margin-right: 100px;
   bottom: calc(100vh - 200px);
-  
+  background-color: #ffffff;
+}
+input:focus{
+    outline: none;
+}
+.input-task {
+  border: none;
+  font-size: 1.2rem;
+  width: 90%;
+  height: 90%;
+}
+.btn-addTask {
+  height: 90%;
+  border: none;
+  background-color: #ffffff;
+  cursor: pointer;
+  margin-left: 10px;
+  position: relative;
+}
+p {
+  font-size: 1rem;
 }

@@ -1,19 +1,35 @@
 import "./Content.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImportantData } from "../data/ImportantData";
 import { CompletedData } from "../data/CompletedData";
 import InputTask from "./InputTask";
 function Content(props) {
   const [list, setList] = useState(props.list);
 
-  const handleDelete = (id) => {
+  // useEffect(() => {
+  //   localStorage.setItem("list", JSON.stringify(list));
+  // }, [list]);
+
+  // const getLocalStorage = () => {
+  //   const localStorageList = localStorage.getItem("list");
+  //   if (localStorageList) {
+  //     setList(JSON.parse(localStorageList));
+  //   }
+  // }
+  
+  const handleAddTask = (task) => {
+    const newList = [task, ...list];
+    setList(newList);
+    console.log(...list);
+  }
+  const handleDeleteTask = (id) => {
     const newList = list;
     newList.splice(id, 1);
     setList([...newList]);
   };
 
-  const handleImportant = (id) => {
+  const handleImportantTask = (id) => {
     const newList = list;
     if (!newList[id].important) {
       ImportantData.push(newList[id]); //push item to important list
@@ -26,7 +42,7 @@ function Content(props) {
     console.log(ImportantData);
   };
 
-  const handleCompleted = (id) => {
+  const handleCompletedTask = (id) => {
     const newList = list;
     if (!newList[id].completed) {
       CompletedData.push(newList[id]); //push item to completed list
@@ -49,7 +65,7 @@ function Content(props) {
                 <p>{item.name}</p>
                 <div className="content-list-item-button">
                   <button
-                    onClick={() => handleCompleted(index)}
+                    onClick={() => handleCompletedTask(index)}
                     className="content-list-item-button-btn"
                   >
                     <ion-icon
@@ -64,7 +80,7 @@ function Content(props) {
                   </button>
 
                   <button
-                    onClick={() => handleImportant(index)}
+                    onClick={() => handleImportantTask(index)}
                     className="content-list-item-button-btn"
                   >
                     <ion-icon
@@ -76,7 +92,7 @@ function Content(props) {
                   </button>
 
                   <button
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDeleteTask(index)}
                     className="content-list-item-button-btn"
                   >
                     <ion-icon className="content-icon" name="trash"></ion-icon>
@@ -89,7 +105,7 @@ function Content(props) {
         </ul>
       </div>
       <div className="content-footer">
-        <InputTask></InputTask>
+        <InputTask onSubmit={handleAddTask}></InputTask>
       </div>
       
     </div>
