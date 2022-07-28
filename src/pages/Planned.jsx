@@ -1,9 +1,9 @@
 //task function
-function Task(props) {
+function Planned(props) {
   return (
     <div>
-      <h1>Task</h1>
+      <h1>Planned</h1>
     </div>
   );
 }
-export default Task;
+export default Planned;

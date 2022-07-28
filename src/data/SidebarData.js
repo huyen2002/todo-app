@@ -2,27 +2,26 @@ export const SidebarData = [
   {
     title: "My Day",
     icon: "sunny",
-    path: "/"
+    path: "/",
   },
   {
     title: "Important",
-    icon: "star-outline" ,
-    path: "/important"
+    icon: "star-outline",
+    path: "/important",
   },
   {
     title: "Planned",
     icon: "calendar",
-    path: "/planned"
+    path: "/planned",
   },
   {
     title: "Task",
     icon: "home",
-    path: "/task"
+    path: "/task",
   },
   {
     title: "Completed",
     icon: "checkmark",
-    path: "/completed"  
-  } 
-
+    path: "/completed",
+  },
 ];

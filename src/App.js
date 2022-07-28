@@ -1,14 +1,14 @@
-import './App.css';
-import Header from './components/Header';
-import SideBar from './components/SideBar';
-import Content from './components/Content';
-import { ContentData } from './data/ContentData';
+import "./App.css";
+import Header from "./components/Header";
+import SideBar from "./components/SideBar";
+import Content from "./components/Content";
 function App() {
+ 
   return (
     <div className="App">
       <Header></Header>
       <SideBar></SideBar>
-      <Content list={ContentData}></Content>
+      <Content></Content>
     </div>
   );
 }
