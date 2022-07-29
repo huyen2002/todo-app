@@ -1,4 +1,3 @@
-import { CompletedData } from "../data/CompletedData";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Content from "../components/Content";
@@ -8,7 +7,7 @@ function Completed(e) {
     <div>
       <Header></Header>
       <SideBar></SideBar>
-      <Content list={CompletedData}></Content>
+      <Content></Content>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 //important function
 import Header from "../components/Header";
-import { ImportantData } from "../data/ImportantData";
 import SideBar from "../components/SideBar";
 import Content from "../components/Content";
 function Important() {
@@ -8,7 +7,7 @@ function Important() {
     <div>
       <Header></Header>
       <SideBar></SideBar>
-      <Content list={ImportantData}></Content>
+      <Content></Content>
     </div>
     
   );
