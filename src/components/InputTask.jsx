@@ -20,6 +20,7 @@ function InputTask({ onSubmit }) {
         placeholder="Enter your task"
         onChange={handleChange}
       ></input>
+      
       <button onClick={handleSubmit} className="btn-addTask">
         <ion-icon name="add-circle-outline" size="large"></ion-icon>
         <p>Add</p>

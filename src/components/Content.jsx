@@ -3,83 +3,145 @@ import { useState } from "react";
 import InputTask from "./InputTask";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Content() {
   const newTask = JSON.parse(localStorage.getItem("list")) || [];
-  const importantTask = JSON.parse(localStorage.getItem("important")) || [];
-  const completedTask = JSON.parse(localStorage.getItem("completed")) || [];
-
+  const location = useLocation();
+  const { pathname } = location;
   const [list, setList] = useState(newTask);
-  // const [important, setImportant] = useState(importantTask);
-  // const [completed, setCompleted] = useState(completedTask);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const today = new Date();
 
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
 
   const List = () => {
-    const location = useLocation();
-    const { pathname } = location;
-
     const tasks = JSON.parse(localStorage.getItem("list")) || [];
-    if(pathname === "/"){
-      return tasks;
-    } else if(pathname === "/important"){
-      const importantTasks = tasks.filter(task => task.important === true);
-      return importantTasks;
-    } else if (pathname === "/completed") {
-      const completedTasks = tasks.filter(task => task.completed === true);
-      return completedTasks;
-    } else {
-      return tasks;
+
+    switch (pathname) {
+      case "/":
+        return tasks.filter((task) => task.date === formatDate(today));
+
+      case "/important":
+        return tasks.filter(
+          (task) => task.important === true && task.date === formatDate(today)
+        );
+
+      case "/completed":
+        return tasks.filter(
+          (task) => task.completed === true && task.date === formatDate(today)
+        );
+
+      case "/tasks":
+        return tasks.filter((task) => task.completed === false);
+
+      case "/planned":
+        return tasks.filter((task) => task.date !== formatDate(today));
+      default:
+        return tasks;
     }
   };
+
+  // function to format date in format "dd/MM/yyyy"
+  const formatDate = (date) => {
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1; // 0 = January
+    const yyyy = date.getFullYear();
+
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+
+    const formattedDate = dd + "/" + mm + "/" + yyyy;
+    return formattedDate;
+  };
+
   const handleAddTask = (task) => {
     const newTask = JSON.parse(localStorage.getItem("list")) || [];
-    var index = newTask.findIndex(function (_task) {
-      return _task.name === task;
-    });
-    if (index === -1) {
-      newTask.push({
-        name: task,
-        important: false,
-        completed: false,
-      }); // add new task to list
-      localStorage.setItem("list", JSON.stringify(newTask)); // save new list to localStorage
-      setList(newTask); // update list
-    } else {
-      alert("Task already exists");
-    }
 
-    // console.log(newTask);
+    switch (pathname) {
+      case "/":
+        newTask.push({
+          name: task,
+          important: false,
+          completed: false,
+          date: formatDate(today),
+        });
+        break;
+      case "/important":
+        newTask.push({
+          name: task,
+          important: true,
+          completed: false,
+          date: formatDate(today),
+        });
+        break;
+      case "/completed":
+        newTask.push({
+          name: task,
+          important: false,
+          completed: true,
+          date: formatDate(today),
+        });
+        break;
+      case "/planned":
+        newTask.push({
+          name: task,
+          important: false,
+          completed: false,
+          date: formatDate(selectedDate),
+        });
+        break;
+      default:
+        break;
+    }
+    localStorage.setItem("list", JSON.stringify(newTask)); // save new list to localStorage
+    setList(newTask); // update list
   };
 
-  const handleDeleteTask = (id) => {
+  const handleDeleteTask = (name, date) => {
     const newList = JSON.parse(localStorage.getItem("list"));
-    newList.splice(id, 1);
+    const index = newList.findIndex(function (_task) {
+      return _task.name === name && _task.date === date;
+    });
+    newList.splice(index, 1);
     localStorage.setItem("list", JSON.stringify(newList));
     setList(newList);
   };
 
-  const handleImportantTask = (id) => {
-
-    const tasks = JSON.parse(localStorage.getItem("list")) || [];
-    tasks[id].important = !tasks[id].important;
-    localStorage.setItem("list", JSON.stringify(tasks));
-    setList(tasks);
+  const handleImportantTask = (name, date) => {
+    const newList = JSON.parse(localStorage.getItem("list"));
+    const index = newList.findIndex(function (_task) {
+      return _task.name === name && _task.date === date;
+    });
+    newList[index].important = !newList[index].important;
+    localStorage.setItem("list", JSON.stringify(newList));
+    setList(newList);
   };
 
-  const handleCompletedTask = (id) => {
-    const tasks = JSON.parse(localStorage.getItem("list")) || []; //get tasks from local storage
-    tasks[id].completed = !tasks[id].completed; //change task completed status
-    localStorage.setItem("list", JSON.stringify(tasks)); //save tasks to local storage
-    setList(tasks); // set tasks to state
+  const handleCompletedTask = (name, date) => {
+    const newList = JSON.parse(localStorage.getItem("list"));
+    const index = newList.findIndex(function (_task) {
+      return _task.name === name && _task.date === date;
+    });
+    newList[index].completed = !newList[index].completed;
+    localStorage.setItem("list", JSON.stringify(newList));
+    setList(newList);
   };
 
   return (
     <div className="content">
-      <div className="content__header"></div>
       <div className="content__main">
+        <ReactDatePicker
+          placeholderText="Select Day"
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+          dateFormat="dd/MM/yyyy"
+          minDate={new Date()}
+        ></ReactDatePicker>
         <ul className="content-list">
           {List().map((item, index) => {
             return (
@@ -87,7 +149,7 @@ function Content() {
                 <p>{item.name}</p>
                 <div className="content-list-item-button">
                   <button
-                    onClick={() => handleCompletedTask(index)}
+                    onClick={() => handleCompletedTask(item.name, item.date)}
                     className="content-list-item-button-btn"
                   >
                     <ion-icon
@@ -102,7 +164,7 @@ function Content() {
                   </button>
 
                   <button
-                    onClick={() => handleImportantTask(index)}
+                    onClick={() => handleImportantTask(item.name, item.date)}
                     className="content-list-item-button-btn"
                   >
                     <ion-icon
@@ -114,7 +176,7 @@ function Content() {
                   </button>
 
                   <button
-                    onClick={() => handleDeleteTask(index)}
+                    onClick={() => handleDeleteTask(item.name, item.date)}
                     className="content-list-item-button-btn"
                   >
                     <ion-icon className="content-icon" name="trash"></ion-icon>
