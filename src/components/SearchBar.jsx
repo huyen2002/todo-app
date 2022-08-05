@@ -1,16 +1,33 @@
-function SearchBar(props) {
+import { useState } from "react";
+import "./SearchBar.css";
+import { Link } from "react-router-dom";
+function SearchBar({ onSubmit }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(searchTerm);
+    setSearchTerm("");
+  };
+
   return (
-    <div className="search-bar">
+    <form className="search-bar" onSubmit={handleSubmit}>
       <input
-        onChange={props.onSearch}
-        value={props.searchTerm}
-        placeholder="Search"
-        type="search"
+        className="search-bar__input"
+        type="text"
+        value={searchTerm}
+        onChange={handleChange}
+        placeholder="Search..."
       />
-      <button className="search-bar__button">
-        <ion-icon name="search"></ion-icon>
-      </button>
-    </div>
+      <Link to="/search">
+        <button className="search-bar__button" type="submit">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </Link>
+    </form>
   );
 }
 export default SearchBar;

@@ -5,20 +5,18 @@ import App from "./App";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Important from "./pages/Important";
-import Planned from "./pages/Planned";
-import Task from "./pages/Task";
-import Completed from "./pages/Completed";
+import Page from "./components/Page";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}></Route>
-        <Route path="/important" element={<Important />}></Route>
-        <Route path="/planned" element={<Planned />}></Route>
-        <Route path="/task" element={<Task />}></Route>
-        <Route path="/completed" element={<Completed />}></Route>
+        <Route path="/important" element={<Page />}></Route>
+        <Route path="/planned" element={<Page />}></Route>
+        <Route path="/tasks" element={<Page />}></Route>
+        <Route path="/completed" element={<Page />}></Route>
+        <Route path="/search" element={<Page />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

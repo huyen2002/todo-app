@@ -15,9 +15,9 @@ export const SidebarData = [
     path: "/planned",
   },
   {
-    title: "Task",
+    title: "Tasks",
     icon: "home",
-    path: "/task",
+    path: "/tasks",
   },
   {
     title: "Completed",

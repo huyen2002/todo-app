@@ -1,28 +1,76 @@
-.header{
+.header {
   background-color: var(--header-background-color);
   width: 100%;
   height: var(--header-height);
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 1.25rem;
 }
-.header__brand{
-  display: flex;
-  justify-content: center;
-  padding: 0 1rem;
+
+.header__logo {
+  font-size: 2rem;
+  color: white;
+  margin-right: 200px;
+  margin-left: 50px;
 }
- 
-.header__container{
+
+.header__container {
+  list-style: none;
   width: 10%;
   display: flex;
   justify-content: space-around;
+  margin-left: 100px;
+  margin-right: 20px;
 }
-.header__setting{
+.header__container__item {
+  margin: 0 5px;
+}
+ion-icon {
+  font-size: 1.5rem;
+}
 
+@media only screen and (max-width: 767px) {
+  .header {
+    width: 100%;
+  }
+  
+  .header__logo {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+
+  .header__container {
+   margin-left: 20px;
+   width: 10%;
+    
+  } 
+ .header__container__item{
+  margin: 0 2px;
 }
-.header__notification{
- margin-right: 30px;
- 
+  .header__container__item ion-icon {
+    font-size: 1.2rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .header__container {
+    width: 10%;
+  }
+   .header__logo {
+    font-size: 1.5rem;
+    margin-right: 100px;
+    margin-left: 20px;
+  }
+
+  .header__container {
+   margin-left: 40px;
+   width: 10%;
+    
+  } 
+ .header__container__item{
+  margin: 0 2px;
+}
+  .header__container__item ion-icon {
+    font-size: 1.2rem;
+  }
 }

@@ -1,29 +1,83 @@
 .input-addTask {
+  display: flex;
   width: 60%;
-  border-radius: 4px;
-  padding: 6px 12px;
-  margin-left: 100px;
-  margin-right: 100px;
-  bottom: calc(100vh - 200px);
+  height: 50px;
+  margin: 10px 0;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
   background-color: #ffffff;
-}
-input:focus{
-    outline: none;
+  align-items: center;
+  justify-content: space-between;
 }
 .input-task {
   border: none;
+  outline: none;
   font-size: 1.2rem;
-  width: 90%;
-  height: 90%;
+  width: 70%;
+  height: 100%;
 }
 .btn-addTask {
   height: 90%;
   border: none;
   background-color: #ffffff;
   cursor: pointer;
-  margin-left: 10px;
   position: relative;
+  margin-right: 10px;
 }
-p {
-  font-size: 1rem;
+.input-date {
+  outline: none;
+  border: none;
+  border-left: 2px solid #484949;
+  background-color: #ffffff;
+  margin-left: calc(20% - 10px);
+  padding-left: 5px;
+  font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 767px) {
+  .input-addTask {
+    width: 80%;
+    height: 40px;
+  }
+  .input-task {
+    font-size: 0.8rem;
+    width: 100%;
+    height: 100%;
+  }
+  .input-date {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    width: 100%;
+  }
+  .btn-addTask {
+    margin-right: 5px;
+    margin-left: 10px;
+  }
+  .btn-addTask ion-icon {
+    font-size: 1rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .input-addTask {
+    width: 60%;
+    height: 40px;
+  }
+  .input-task {
+    font-size: 0.8rem;
+    width: 100%;
+    height: 100%;
+  }
+  .input-date {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    width: 100%;
+
+  }
+  .btn-addTask {
+    margin-right: 5px;
+    margin-left: 10px;
+  }
+  .btn-addTask ion-icon {
+    font-size: 1rem;
+  }
 }
