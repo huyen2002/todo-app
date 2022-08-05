@@ -1,5 +1,20 @@
 :root{
   --header-background-color:#2564cf;
-  --header-height: 80px;
+  --header-height: 8em;
   --sidebar-width: 200px;
 }
+.App{
+  height: 100vh;
+}
+@media only screen and (max-width: 767px) {
+  
+  :root{
+    --sidebar-width: 30%;
+
+  }
+  .App{
+    width: 100%;
+  }
+  
+}
+  

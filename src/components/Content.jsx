@@ -3,44 +3,51 @@ import { useState } from "react";
 import InputTask from "./InputTask";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Content() {
-  const newTask = JSON.parse(localStorage.getItem("list")) || [];
+  const newTasks = JSON.parse(localStorage.getItem("list")) || [];
+  const searchTasks = JSON.parse(localStorage.getItem("search")) || [];
+
   const location = useLocation();
   const { pathname } = location;
-  const [list, setList] = useState(newTask);
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const today = new Date();
-
+  const [list, setList] = useState(newTasks);
+ 
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
 
+  const handleSearch = (searchTerm) => {
+    const search = list.filter((task) => {
+      return task.title.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+    );
+    setList(search);
+    localStorage.setItem("search", JSON.stringify(search));
+  }
+
   const List = () => {
     const tasks = JSON.parse(localStorage.getItem("list")) || [];
-
+   
     switch (pathname) {
       case "/":
-        return tasks.filter((task) => task.date === formatDate(today));
+        return tasks.filter((task) => task.date === today);
 
       case "/important":
         return tasks.filter(
-          (task) => task.important === true && task.date === formatDate(today)
+          (task) => task.important === true && task.date === today
         );
 
       case "/completed":
         return tasks.filter(
-          (task) => task.completed === true && task.date === formatDate(today)
+          (task) => task.completed === true && task.date === today
         );
 
       case "/tasks":
         return tasks.filter((task) => task.completed === false);
 
       case "/planned":
-        return tasks.filter((task) => task.date !== formatDate(today));
+        return tasks.filter((task) => task.date !== today);
       default:
         return tasks;
     }
@@ -58,38 +65,39 @@ function Content() {
     const formattedDate = dd + "/" + mm + "/" + yyyy;
     return formattedDate;
   };
+  const today = formatDate(new Date());
 
-  const handleAddTask = (task) => {
+  const handleAddTask = (input, selectedDate) => {
     const newTask = JSON.parse(localStorage.getItem("list")) || [];
 
     switch (pathname) {
       case "/":
         newTask.push({
-          name: task,
+          name: input,
           important: false,
           completed: false,
-          date: formatDate(today),
+          date: today,
         });
         break;
       case "/important":
         newTask.push({
-          name: task,
+          name: input,
           important: true,
           completed: false,
-          date: formatDate(today),
+          date: today,
         });
         break;
       case "/completed":
         newTask.push({
-          name: task,
+          name: input,
           important: false,
           completed: true,
-          date: formatDate(today),
+          date: today,
         });
         break;
       case "/planned":
         newTask.push({
-          name: task,
+          name: input,
           important: false,
           completed: false,
           date: formatDate(selectedDate),
@@ -135,13 +143,6 @@ function Content() {
   return (
     <div className="content">
       <div className="content__main">
-        <ReactDatePicker
-          placeholderText="Select Day"
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-          dateFormat="dd/MM/yyyy"
-          minDate={new Date()}
-        ></ReactDatePicker>
         <ul className="content-list">
           {List().map((item, index) => {
             return (

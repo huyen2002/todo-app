@@ -16,6 +16,7 @@ root.render(
         <Route path="/planned" element={<Page />}></Route>
         <Route path="/tasks" element={<Page />}></Route>
         <Route path="/completed" element={<Page />}></Route>
+        <Route path="/search" element={<Page />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
