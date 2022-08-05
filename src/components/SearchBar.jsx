@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./SearchBar.css";
 import { Link } from "react-router-dom";
+import "./SearchBar.css";
 function SearchBar({ onSubmit }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -14,7 +14,7 @@ function SearchBar({ onSubmit }) {
   };
 
   return (
-    <form className="search-bar" onSubmit={handleSubmit}>
+    <form className="search-bar">
       <input
         className="search-bar__input"
         type="text"
@@ -23,7 +23,10 @@ function SearchBar({ onSubmit }) {
         placeholder="Search..."
       />
       <Link to="/search">
-        <button className="search-bar__button" type="submit">
+        <button
+          className="search-bar__button"
+          type="submit"
+          onClick={handleSubmit}>
           <ion-icon name="search"></ion-icon>
         </button>
       </Link>

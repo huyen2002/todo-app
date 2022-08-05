@@ -1,55 +1,43 @@
-import "./Content.css";
-import { useState } from "react";
-import InputTask from "./InputTask";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import { useLocation } from "react-router-dom";
+import "./Content.css";
+import InputTask from "./InputTask";
 
-function Content() {
+function Content({ searchText }) {
   const newTasks = JSON.parse(localStorage.getItem("list")) || [];
-  const searchTasks = JSON.parse(localStorage.getItem("search")) || [];
+  // const searchTasks = JSON.parse(localStorage.getItem('search')) || []
 
   const location = useLocation();
   const { pathname } = location;
   const [list, setList] = useState(newTasks);
- 
+
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
 
-  const handleSearch = (searchTerm) => {
-    const search = list.filter((task) => {
-      return task.title.toLowerCase().includes(searchTerm.toLowerCase());
-    }
-    );
-    setList(search);
-    localStorage.setItem("search", JSON.stringify(search));
-  }
-
   const List = () => {
-    const tasks = JSON.parse(localStorage.getItem("list")) || [];
-   
     switch (pathname) {
       case "/":
-        return tasks.filter((task) => task.date === today);
-
+        return newTasks.filter((task) => task.date === today);
       case "/important":
-        return tasks.filter(
+        return newTasks.filter(
           (task) => task.important === true && task.date === today
         );
-
       case "/completed":
-        return tasks.filter(
+        return newTasks.filter(
           (task) => task.completed === true && task.date === today
         );
-
       case "/tasks":
-        return tasks.filter((task) => task.completed === false);
-
+        return newTasks.filter((task) => task.completed === false);
       case "/planned":
-        return tasks.filter((task) => task.date !== today);
+        return newTasks.filter((task) => task.date !== today);
+      case "/search":
+        return newTasks.filter((task) => {
+          return task.title.toLowerCase().includes(searchText.toLowerCase());
+        });
       default:
-        return tasks;
+        return newTasks;
     }
   };
 
@@ -110,6 +98,8 @@ function Content() {
     setList(newTask); // update list
   };
 
+  const handleSearch = (searchText) => {};
+
   const handleDeleteTask = (name, date) => {
     const newList = JSON.parse(localStorage.getItem("list"));
     const index = newList.findIndex(function (_task) {
@@ -151,35 +141,32 @@ function Content() {
                 <div className="content-list-item-button">
                   <button
                     onClick={() => handleCompletedTask(item.name, item.date)}
-                    className="content-list-item-button-btn"
-                  >
+                    className="content-list-item-button-btn">
                     <ion-icon
                       className="content-icon"
                       name={
                         item.completed
                           ? "checkmark-circle"
                           : "checkmark-circle-outline"
-                      }
-                    ></ion-icon>
+                      }></ion-icon>
                     <span className="tooltip-text">completed</span>
                   </button>
 
                   <button
                     onClick={() => handleImportantTask(item.name, item.date)}
-                    className="content-list-item-button-btn"
-                  >
+                    className="content-list-item-button-btn">
                     <ion-icon
                       className="content-icon"
-                      name={item.important ? "star" : "star-outline"}
-                    ></ion-icon>
+                      name={
+                        item.important ? "star" : "star-outline"
+                      }></ion-icon>
 
                     <span className="tooltip-text">important</span>
                   </button>
 
                   <button
                     onClick={() => handleDeleteTask(item.name, item.date)}
-                    className="content-list-item-button-btn"
-                  >
+                    className="content-list-item-button-btn">
                     <ion-icon className="content-icon" name="trash"></ion-icon>
                     <span className="tooltip-text">delete</span>
                   </button>

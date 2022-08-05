@@ -1,14 +1,15 @@
+import { useState } from "react";
 import "./App.css";
+import Content from "./components/Content";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
-import Content from "./components/Content";
 function App() {
- 
+  const middleHandle = () => {};
   return (
     <div className="App">
-      <Header></Header>
-      <SideBar></SideBar>
-      <Content></Content>
+      <Header onSubmit={middleHandle} />
+      <SideBar />
+      <Content />
     </div>
   );
 }
