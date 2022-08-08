@@ -1,12 +1,11 @@
 import SideBar from "./SideBar";
-import Header from "./Header";
-import Content from "./Content";
+import FilterableTask from "./FilterableTask";
 function Page() {
   return (
     <div>
-      <Header></Header>
+      
       <SideBar></SideBar>
-      <Content></Content>
+      <FilterableTask />
 
     </div>
   )

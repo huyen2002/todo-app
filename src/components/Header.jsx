@@ -1,14 +1,14 @@
 // import { useState } from "react";
 import "./Header.css";
 import SearchBar from "./SearchBar";
-function Header({ onSubmit }) {
+function Header({filterText, handleChange}) {
   return (
     <div className="header">
       <div className="header__brand">
         <span className="header__logo">TO DO</span>
       </div>
 
-      <SearchBar onSubmit={onSubmit} />
+      <SearchBar filterText={filterText} handleChange={handleChange}/>
       <ul className="header__container">
         <li className="header__container__item">
           <ion-icon name="settings"></ion-icon>
