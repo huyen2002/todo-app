@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import "./SearchBar.css";
-function SearchBar({filterText, handleChange}) {
-  
+import {Context} from "./FilterableTask";
+import { useContext } from "react";
+
+function SearchBar() {
+  const value = useContext(Context);
   return (
     <form className="search-bar">
       <Link to="/search">
       <input
         className="search-bar__input"
         type="text"
-        value={filterText}
-        onChange={handleChange}
+        value={value.filterText}
+        onChange={value.handleChange}
         placeholder="Search..."
       />
      </Link>

@@ -31,10 +31,14 @@
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-radius: 5px;
   background-color: #ffffff;
-  color: #484949; 
+  color: #484949;
   font-size: 1.25rem;
+  position: relative;
 }
-
+.content-list-item-date {
+  position: absolute;
+  right: calc(20% - 20px);
+}
 .content-list-item-button-btn {
   border: none;
   background-color: #ffffff;
@@ -42,7 +46,8 @@
   margin: 0 10px;
   position: relative;
 }
-.content-list-item-button-btn ion-icon{
+
+.content-list-item-button-btn ion-icon {
   font-size: 1.25rem;
 }
 .tooltip-text {
@@ -59,33 +64,68 @@
   bottom: 100%;
   left: 50%;
   margin-left: -30px;
-  
 }
 .content-list-item-button-btn:hover .tooltip-text {
   visibility: visible;
 }
-.content-footer{
- left: 0;
- right: 0;
- height: 60px;
- position: absolute;
- top: calc(100% - 100px);
- display: flex;
- justify-content: center;
+.content-footer {
+  left: 0;
+  right: 0;
+  height: 60px;
+  position: absolute;
+  top: calc(100% - 100px);
+  display: flex;
+  justify-content: center;
 }
 
-@media only screen and (max-width: 768px){
-  .content-list{
+@media only screen and (max-width: 768px) {
+  .content-list {
     padding: 20px 0 0 0;
   }
-  .content-list-item{
+  .content-list-item {
+    width: 90%;
+    height: 40px;
+    margin: 10px 0;
+    padding: 0;
+  }
+  .content-list-item-title {
+    font-size: 0.8rem;
+  }
+  .content-list-item-date {
+    position: absolute;
+    right: calc(50% - 30px);
+    font-size: 0.7rem;
+  }
+
+  .content-list-item-button-btn {
+    margin: 0 5px;
+  }
+  .content-list-item-button-btn ion-icon {
+    font-size: 0.8rem;
+  }
+  /* .content-footer{
+    top: calc(100% - 60px);
+  } */
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .content-list {
+    padding: 20px 0 0 0;
+  }
+  .content-list-item {
     width: 80%;
     height: 40px;
     margin: 10px 0;
     padding: 0;
     font-size: 1rem;
   }
-  .content-list-item-button-btn ion-icon{
+  .content-list-item-date {
+    position: absolute;
+    right: calc(30% - 20px);
+  }
+  .content-list-item p {
+    font-size: 1rem;
+  }
+  .content-list-item-button-btn ion-icon {
     font-size: 1rem;
   }
   /* .content-footer{

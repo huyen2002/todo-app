@@ -2,8 +2,11 @@ import { useState } from "react";
 import Header from "./Header";
 import Content from "./Content";
 import { useLocation } from "react-router-dom";
+import { createContext } from "react";
 
-function FilterableTask() {
+export const Context = createContext();
+
+export default function FilterableTask() {
   const tasks = JSON.parse(localStorage.getItem("list")) || [];
   const [filterText, setFilterText] = useState("");
   const [list, setList] = useState(tasks);
@@ -11,9 +14,11 @@ function FilterableTask() {
   const location = useLocation();
   const { pathname } = location;
 
+  // const Context = createContext();
+
   const handleChange = (e) => {
     setFilterText(e.target.value);
-  }
+  };
 
   // function to format date in format "dd/MM/yyyy"
   const formatDate = (date) => {
@@ -67,12 +72,13 @@ function FilterableTask() {
     localStorage.setItem("list", JSON.stringify(newTasks));
   };
   const handleDeleteTask = (title, date) => {
-    const newTasks = list.filter((task) => task.title !== title || task.date !== date);
+    const newTasks = list.filter(
+      (task) => task.title !== title || task.date !== date
+    );
     setList(newTasks);
     localStorage.setItem("list", JSON.stringify(newTasks));
-  }
+  };
   const handleCompletedTask = (title, date) => {
-  
     const newTasks = tasks.map((task) => {
       if (task.title === title && task.date === date) {
         task.completed = !task.completed;
@@ -92,17 +98,25 @@ function FilterableTask() {
     setList(newTasks);
     localStorage.setItem("list", JSON.stringify(newTasks));
   };
+
+  const value = {
+    pathname,
+    tasks: getList(),
+    filterText,
+    handleChange,
+    handleAddTask,
+    handleDeleteTask,
+    handleCompletedTask,
+    handleImportantTask,
+  };
+
   return (
-    <div className="filterable-task">
-      <Header filterText={filterText} handleChange={handleChange} />
-      <Content
-        handleCompletedTask={handleCompletedTask}
-        handleDeleteTask={handleDeleteTask}
-        handleAddTask={handleAddTask}
-        handleImportantTask={handleImportantTask}
-        tasks={getList()}
-      />
-    </div>
+    <Context.Provider value={value}>
+      <div className="filterable-task">
+        <Header />
+        <Content />
+      </div>
+    </Context.Provider>
   );
 }
-export default FilterableTask;
+

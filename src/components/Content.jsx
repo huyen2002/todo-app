@@ -1,25 +1,24 @@
 import "react-datepicker/dist/react-datepicker.css";
 import "./Content.css";
 import InputTask from "./InputTask";
+import { useContext } from "react";
+import { Context } from "./FilterableTask";
 
-function Content({
-  handleCompletedTask,
-  handleDeleteTask,
-  handleAddTask,
-  handleImportantTask,
-  tasks,
-}) {
+function Content() {
+  const value = useContext(Context);
   return (
     <div className="content">
       <div className="content__main">
         <ul className="content-list">
-          {tasks.map((item, index) => {
+          {value.tasks.map((item, index) => {
             return (
               <li className="content-list-item" key={index}>
-                <p>{item.title}</p>
+                <p className="content-list-item-title">{item.title}</p>
+                {value.pathname === "/planned" && <p className="content-list-item-date">{item.date}</p>}
+
                 <div className="content-list-item-button">
                   <button
-                    onClick={() => handleCompletedTask(item.title, item.date)}
+                    onClick={() => value.handleCompletedTask(item.title, item.date)}
                     className="content-list-item-button-btn">
                     <ion-icon
                       className="content-icon"
@@ -32,7 +31,7 @@ function Content({
                   </button>
 
                   <button
-                    onClick={() => handleImportantTask(item.title, item.date)}
+                    onClick={() => value.handleImportantTask(item.title, item.date)}
                     className="content-list-item-button-btn">
                     <ion-icon
                       className="content-icon"
@@ -44,7 +43,7 @@ function Content({
                   </button>
 
                   <button
-                    onClick={() => handleDeleteTask(item.title, item.date)}
+                    onClick={() => value.handleDeleteTask(item.title, item.date)}
                     className="content-list-item-button-btn">
                     <ion-icon className="content-icon" name="trash"></ion-icon>
                     <span className="tooltip-text">delete</span>
@@ -56,7 +55,7 @@ function Content({
         </ul>
       </div>
       <div className="content-footer">
-        <InputTask onSubmit={handleAddTask}></InputTask>
+        <InputTask onSubmit={value.handleAddTask}></InputTask>
       </div>
     </div>
   );
