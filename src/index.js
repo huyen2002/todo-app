@@ -6,6 +6,8 @@ import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Page from "./components/Page";
+import SignUp from "./components/SignUp";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -17,6 +19,7 @@ root.render(
         <Route path="/tasks" element={<Page />}></Route>
         <Route path="/completed" element={<Page />}></Route>
         <Route path="/search" element={<Page />}></Route>
+      <Route path="/sign-up" element={<SignUp />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

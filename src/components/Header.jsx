@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 import SearchBar from "./SearchBar";
 function Header() {
@@ -8,7 +9,7 @@ function Header() {
         <span className="header__logo">TO DO</span>
       </div>
 
-      <SearchBar/>
+      <SearchBar />
       <ul className="header__container">
         <li className="header__container__item">
           <ion-icon name="settings"></ion-icon>
@@ -17,7 +18,12 @@ function Header() {
           <ion-icon name="help-circle-outline"></ion-icon>
         </li>
         <li className="header__container__item">
-          <ion-icon name="notifications-outline"></ion-icon>
+         
+            <Link className="header-sign-up" to="/sign-up">
+              <ion-icon name="contact"></ion-icon>
+            </Link>
+
+          
         </li>
       </ul>
     </div>
